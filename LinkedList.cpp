@@ -53,25 +53,7 @@ public:
 
 //  ====================== ======================== Function implementations ============================ ========================
 
-Node* append(int data){
 
-    Node* newNode = new Node(data);
-    if(head == nullptr){
-        head = newNode;
-        return head;    
-    }
-
-    Node* temp = head;
-    while(temp->next != nullptr){
-        temp = temp->next;
-    }
-
-    temp->next = newNode;
-    newNode->next = nullptr;  // to avoid dangling pointer, or memory leak
-    size++;
-    return head;
-
-}
 
 int getSize(){
 
@@ -130,6 +112,26 @@ void display(){                     // Print the linked list
 }
 
 // ======================================= INserting & Deleting elements ====================================================
+
+Node* append(int data){
+
+    Node* newNode = new Node(data);
+    if(head == nullptr){
+        head = newNode;
+        return head;    
+    }
+
+    Node* temp = head;
+    while(temp->next != nullptr){
+        temp = temp->next;
+    }
+
+    temp->next = newNode;
+    newNode->next = nullptr;  // to avoid dangling pointer, or memory leak
+    size++;
+    return head;
+
+}
 
 Node* prepend( int data){
 
@@ -225,6 +227,19 @@ void deleteAtEnd(){
     return;
 }
 
+Node* getHead(){
+    return head;
+}
+
+//  =================== MERGE TWO SORTED LINKED LIST ==================
+void mergeList(Node* hd){
+    Node* temp = head;
+    while(temp->next != NULL){
+        temp = temp->next;
+    }
+    temp->next = hd;
+
+}
 
 
 
@@ -281,8 +296,24 @@ int main(){
 
     l->getNthNode(0);
     
-    cout<<l->isEmpty();
+    cout<<l->isEmpty()<<endl;
+
+    LinkedList* l2 = new LinkedList;
+
+    for(int i=0; i<5; i++){
+        l2->prepend(i);
+    }
+    cout<<"merge checking"<<endl;
+
+    l->display();
+    l2->display();
+    // cout<<l2->getHead()->data;
+
+    l->mergeList(l2->getHead());
+
+    l->display();
 
     return 0;
 
+    
 }
